@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 clear
 
 # Create a secure tmp directory
 tmp=${TMPDIR-/tmp}
 	tmp=$tmp/oduso.$RANDOM.$RANDOM.$RANDOM.$$ # Use a random name so it's secure
 	(umask 077 && mkdir "$tmp") || { # Another security precaution
-		echo "Could not create temporary directory! Exiting." 1>&2 
+		echo "Could not create temporary directory! Exiting." 1>&2
 		exit 1
 	}
 
@@ -31,12 +31,12 @@ sleep 2
 trap "rm -rf $tmp" EXIT # Delete tmp files on exit
 
 # Add all the repositories
-echo "Adding Repositories" 
+echo "Adding Repositories"
 (
 #Enable partner repository
-sed -i "/^# deb .*partner/ s/^# //" /etc/apt/sources.list 
+sed -i "/^# deb .*partner/ s/^# //" /etc/apt/sources.list
 wget -q http://apt.last.fm/last.fm.repo.gpg -O- | sudo apt-key add -
-wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 echo "deb http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list
 add-apt-repository ppa:tomahawk/ppa -y
 add-apt-repository ppa:tualatrix/ppa -y
@@ -63,7 +63,7 @@ apt-add-repository ppa:atareao/atareao -y
 apt-add-repository ppa:yorba/ppa -y
 ) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
 
-echo "Updating System" 
+echo "Updating System"
 (
 apt-get update
 ) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
@@ -206,8 +206,8 @@ esac
 
 echo "Cleaning up"
 (
-apt-get -y autoremove 
-apt-get -y autoclean 
+apt-get -y autoremove
+apt-get -y autoclean
 apt-get -y clean
 ) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
 
@@ -223,8 +223,8 @@ apt-get install unace rar unrar p7zip-rar p7zip zip unzip sharutils uudeview mpa
 
 echo "Installing Ubuntu Restricted Extra"
 (
-echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections 
-apt-get install ubuntu-restricted-extras -y 
+echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections
+apt-get install ubuntu-restricted-extras -y
 ) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
 
 echo "Installing Vertex"
@@ -247,7 +247,7 @@ echo "Tweaking tweaking..."
 sed -i 's/NoDisplay=true/NoDisplay=false/g' /etc/xdg/autostart/*.desktop
 
 #Disable apport
-sed -i 's/enabled=1/enabled=0/g' /etc/default/apport 
+sed -i 's/enabled=1/enabled=0/g' /etc/default/apport
 
 #echo "Rebooting in 10 Seconds, CTRL + C to cancel!"
 #sleep 10
