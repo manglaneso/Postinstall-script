@@ -3,7 +3,7 @@ clear
 
 # Create a secure tmp directory
 tmp=${TMPDIR-/tmp}
-	tmp=$tmp/oduso.$RANDOM.$RANDOM.$RANDOM.$$ # Use a random name so it's secure
+	tmp=$tmp/postinstall.$RANDOM.$RANDOM.$RANDOM.$$ # Use a random name so it's secure
 	(umask 077 && mkdir "$tmp") || { # Another security precaution
 		echo "Could not create temporary directory! Exiting." 1>&2
 		exit 1
@@ -14,16 +14,15 @@ targetDistro=trusty
 if [ "$distro" != "$targetDistro" ]; then
   echo "Wrong Distribution!"
   echo "You are using $distro, this script was made for $targetDistro."
-  echo "Please visit oduso.com"
   exit 1
 fi
 #use sudo rights for the whole script
-sudo -s <<MINABO
+sudo -s <<YEAH
 
 clear
 
 echo ------------------
-echo "Welcome to MINABO"
+echo "Welcome to YEAH"
 echo ------------------
 echo "   "
 sleep 2
@@ -253,6 +252,6 @@ sed -i 's/enabled=1/enabled=0/g' /etc/default/apport
 #sleep 10
 #shutdown -r now
 
-MINABO
+YEAH
 notify-send "Pisha!" "Que ehto ya ehtá inhtalao"
 exit 0
