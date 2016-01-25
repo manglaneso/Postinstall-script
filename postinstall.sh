@@ -12,6 +12,12 @@ tmp=${TMPDIR-/tmp}
         exit 1
     }
 
+if [ $(tput colors) ]; then # Checks if terminal supports colors
+    red="\e[31m"
+    green="\e[32m"
+    endcolor="\e[39m"
+fi
+
 distro=$(lsb_release -c | cut -f2)
 
 # Create dir to install some programs
@@ -19,7 +25,7 @@ homedir=$HOME
 mkdir "$homedir/Programs"
 
 # use sudo rights for the whole script
-sudo -s <<YEAH
+#sudo -s <<YEAH
 
 clear
 
@@ -35,7 +41,7 @@ echo "Upgrading old packages"
 (
 apt-get update -y
 apt-get upgrade -y
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 # Add all the repositories
 echo "Adding Repositories"
@@ -123,44 +129,44 @@ apt-add-repository ppa:webupd8team/sublime-text-3 -y
 add-apt-repository ppa:webupd8team/tor-browser -y
 # PPA manager
 add-apt-repository ppa:webupd8team/y-ppa-manager -y
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 echo "Updating System"
 (
 apt-get update 
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 if [ "$distro" = trusty ]; then
     echo "Installing Brightness fix"
     (
     apt-get install sysvinit-backlight -y
-    ) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+    ) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
     echo "Installing Java Menus"
     (
     apt-get install jayatana libjayatana libjayatana-java libjayatanaag libjayatanaag-java -y
-    ) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+    ) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
     echo "Installing indicator keylock"
     (
     apt-get install indicator-keylock -y
-    ) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+    ) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 elif [ "$distro" = xenial ]; then
     echo "Installing Vertex, Arc and Yosembiance themes"
     (
     apt-get install arc-theme vertex-theme -y
-    ) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+    ) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
     echo "Installing Birdie"
     (
     apt-get install birdie -y
-    ) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+    ) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
     echo "Installing Lollypop"
     (
     apt-get install lollypop -y
-    ) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+    ) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 fi
 
@@ -169,87 +175,87 @@ echo "Installing Ubuntu Restricted Extra"
 echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections
 apt-get install ubuntu-restricted-extras -y
 /usr/share/doc/libdvdread4/install-css.sh
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 echo "Installing ubuntu make"
 (
 apt-get install ubuntu-make -y
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 echo "Installing gaming stuff (Steam, emulators, etc"
 (
 apt-get install steam retroarch dolphin-emu-master -y
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 echo "Installing Rhythmbox plugins"
 (
 apt-get install rhythmbox-plugin-alternative-toolbar -y
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 echo "Installing simplescreenrecorder"
 (
 apt-get install simplescreenrecorder -y
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 echo "Installing Libreoffice breeze and sifr"
 (
 apt-get install libreoffice-style-breeze libreoffice-style-sifr -y
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 echo "Installing Geary"
 (
 apt-get install geary -y
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 echo "Installing GIMP"
 (
 apt-get install gimp -y
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 echo "Installing music and video stuff"
 (
 apt-get install asunder clementine banshee spotify-client vlc audacious puddletag soundconverter -y
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 echo "Installing downloading stuff"
 (
 apt-get install jdownloader-installer qbittorrent filezilla -y
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 echo "Installing web browsers"
 (
 apt-get install google-chrome-stable chromium-browser chromium-codecs-ffmpeg-extra adobe-flashplugin -y
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 echo "Installing config stuff"
 (
 apt-get install ubuntu-tweak notifyosdconfig y-ppa-manager grub-customizer unity-tweak-tool compizconfig-settings-manager dconf-editor menulibre pavucontrol -y
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 echo "Installing developing stuff (Compilers, java, text editors, etc)"
 (
 apt-get install build-essential openjdk-8-jdk sublime-text-installer ruby ubuntu-sdk atom brackets terminator -y
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 echo "Installing indicators(syspeek, my-weather-indicator, indicator-cpufreq)"
 (
 apt-get install syspeek indicator-cpufreq my-weather-indicator -y
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 echo "Installing stuff I like"
 (
 apt-get install copy haguichi haguichi-appindicator gnome-sushi avidemux nautilus-open-terminal -y
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 echo "Installing skype"
 (
 apt-get install skype gtk2-engines-murrine:i386 gtk2-engines-pixbuf:i386 -y
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 echo "Installing apt stuff"
 (
 apt-get install synaptic gdebi -y
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 # Install nvidia drivers
 #notify-send "Eh, hazme caso, maldito"
@@ -262,33 +268,36 @@ apt-get install synaptic gdebi -y
 echo "Installing file archiving resources"
 (
 apt-get install unace rar unrar p7zip-rar p7zip zip unzip sharutils uudeview mpack arj cabextract file-roller -y
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 echo "Installing Nylas N1"
 (
 wget -O $tmp/d.deb https://edgehill.nylas.com/download?platform=linux-deb
 dpkg -i $tmp/d.deb
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 echo "Installing Numix themes and icons"
 (
 apt-get install numix-gtk-theme numix-icon-theme-circle -y
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 echo "Cleaning up"
 (
 apt-get autoremove -y
 apt-get autoclean -y
 apt-get clean -y
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 echo "Tweaking tweaking..."
+(
 # Show all startup apps
 sed -i 's/NoDisplay=true/NoDisplay=false/g' /etc/xdg/autostart/*.desktop
 
 # Change mouse icon theme to elementary
 mv elementary /usr/share/icons/
 sed -i 's/DMZ-White/elementary/g' /usr/share/icons/default/index.theme
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
+
 YEAH
 
 echo "Installing Firefox dev, Idea, Unity3D and Android Studio"
@@ -301,7 +310,7 @@ mkdir "$homedir/Programs/idea"
 umake ide idea "$homedir/Programs/idea"
 mkdir "$homedir/Programs/unity3d"
 umake games unity3d "$homedir/Programs/unity3d"
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 echo "Installing Telegram desktop"
 (
@@ -310,7 +319,7 @@ cd $tmp
 tar xf telegram.tar.xz
 mv Telegram $homedir/Programs/
 cd $dir_name
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 echo "Installing cleanup soundmenu"
 (
@@ -319,10 +328,10 @@ place=$homedir/Programs/cleanup_soundmenu.py
 sed -i "s~placepathhere~$place~g" cleanup.desktop
 mv cleanup_soundmenu.py $homedir/Programs/
 mv cleanup.desktop $homedir/.config/autostart/
-) &> /dev/null && echo -e '\e[32mOK\e[39m' || echo -e '\e[31mFAILED\e[39m'; # Hide all output
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 echo "More tweaking tweaking..."
-
+(
 if [ "$distro" = trusty ]; then
     # Disable overlay scrollbars in trusty
     gsettings set com.canonical.desktop.interface scrollbar-mode normal
@@ -343,6 +352,7 @@ sed -i 's/enabled=1/enabled=0/g' /etc/default/apport
 gsettings set org.gnome.desktop.interface gtk-theme 'Numix'
 gsettings set org.gnome.desktop.wm.preferences theme 'Numix'
 gsettings set org.gnome.desktop.interface icon-theme 'Numix-circle'
+) &> /dev/null && echo -e "$green OK $endcolor" || echo -e "$red FAILED $endcolor"; # Hide all output
 
 #echo "Rebooting in 10 Seconds, CTRL + C to cancel!"
 #sleep 10
