@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Exec=python3 placepathhere
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[es]=cleanup_soundmenu
+Name=cleanup_soundmenu
+Comment[es]=
+Comment=
