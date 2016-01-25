@@ -358,5 +358,5 @@ gsettings set org.gnome.desktop.interface icon-theme 'Numix-circle'
 #sleep 10
 #shutdown -r now
 
-notify-send "All done sir!"
+notify-send "Post install script" "All done sir!"
 exit 0
