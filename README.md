@@ -9,12 +9,12 @@ This script uses files from [elementary cursor theme](https://github.com/snwh/el
 It also uses a python script by Jacob Vlijm which can be found [here](http://askubuntu.com/questions/468811/remove-vlc-player-from-sound-menu-in-unity-bar/471577).
 
 You can get the code from the git repository:
-	git clone https://github.com/manglasape/Postinstall-script.git
+    git clone https://github.com/manglasape/Postinstall-script.git
 
 ##Usage:
 
 Give the script executable privileges:
-	chmod a+x postinstall.sh
+    chmod a+x postinstall.sh
 
 Then run it!:
-	./postinstall.sh
+    ./postinstall.sh
